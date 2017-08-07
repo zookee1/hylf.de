@@ -1,0 +1,62 @@
+{
+    "0": {
+        "element": "#bundesliga_1",
+        "clubs": {
+            "0": {
+                "name": "Werder Bremen",
+                "shortname": "SVW",
+                "js_handle": "werderbremen",
+                "ticket_exchanges_online": {
+                    "0": {
+                        "name": "worum.org",
+                        "link": "http://www.worum.org/forums/68-Ticketing"
+                    },
+                    "1": {
+                        "name": "Schwarzes Brett Bremen",
+                        "link": "http://www.schwarzesbrett.bremen.de/verkauf-angebote/rubrik/tickets-werder-verkauf.html"
+                    }
+                },
+                "ticket_exchange_places": {
+                    "0": {
+                        "name": "Taubenschlag",
+                        "link": "https://goo.gl/maps/romzzdZNfa12"
+                    },
+                    "1": {
+                        "name": "Säule am Stadion",
+                        "link": "https://goo.gl/maps/X8qR54sM32K2"
+                    },
+                    "2": {
+                        "name": "Ostkurvensaal",
+                        "link": "https://goo.gl/maps/rQo5UzrMQQt"
+                    },
+                    "3": {
+                        "name": "Werderimbiss",
+                        "link": "https://goo.gl/maps/hhLXUCRj2XC2"
+                    }
+                }
+            }
+        }
+    },
+    "1": {
+        "element": "#bundesliga_2",
+        "clubs": {
+            "0": {
+                "name": "Sankt Pauli",
+                "shortname": "SCP",
+                "js_handle": "sanktpauli",
+                "ticket_exchanges_online": {
+                    "0": {
+                        "name": "worum.org",
+                        "link": "http://www.worum.org/forums/68-Ticketing"
+                    }
+                },
+                "ticket_exchange_places": {
+                    "0": {
+                        "name": "Taubenschlag",
+                        "link": "https://goo.gl/maps/romzzdZNfa12"
+                    }
+                }
+            }
+        }
+    }
+}

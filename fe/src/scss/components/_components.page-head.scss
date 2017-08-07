@@ -8,7 +8,7 @@
     background-image: url("/img/header.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: bottom;
+    background-position: 0px;
 
     @include mq($from: tablet, $until: desktop) {
         height: 350px;
