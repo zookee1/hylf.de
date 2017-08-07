@@ -1,0 +1,31 @@
+/*------------------------------------*\
+    #BUTTONS
+\*------------------------------------*/
+
+.c-btn {
+    border: 1px solid $color-ui;
+}
+
+    .c-btn--primary {
+        background-color: $color-brand;
+
+        &:hover {
+            background-color: $color-brand-light;
+        }
+
+        &:active, &:focus {
+            background-color: $color-brand-dark;
+        }
+    }
+
+    .c-btn--secondary {
+        background-color: $color-secondary;
+
+        &:hover {
+            background-color: $color-secondary-light;
+        }
+
+        &:active, &:focus {
+            background-color: $color-secondary-dark;
+        }
+    }

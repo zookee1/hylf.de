@@ -1,0 +1,54 @@
+///* ========================================================================
+//   #CONFIG
+//   ======================================================================== */
+
+// A map of global config settings. Define any project-level configuration,
+// feature switches, etc. in here.
+
+$inuit-config: (
+  env: dev,
+  healthcheck: false,
+  debug: true,
+);
+
+// You can access data in this map using the following function:
+//
+// inuit-config(<key>)
+//
+// Example usage:
+//
+// @if (inuit-config(debug) == true) { ...  }
+
+@function inuit-config($key) {
+  @return map-get($inuit-config, $key);
+}
+
+
+///* ========================================================================
+//     #COLORS
+//   ======================================================================== */
+
+
+// Abstract, reusable color vars.
+$color-brand:                       #007828;
+$color-brand-light:                 lighten($color-brand, 5%);
+$color-brand-dark:                  darken($color-brand, 5%);
+$color-secondary:                   #9E0601;
+$color-secondary-light:             lighten($color-secondary, 5%);
+$color-secondary-dark:              darken($color-secondary, 5%);
+$color-ui:                          #1D9E48;
+$color-default:                     #FFFFFF;
+$color-base:                        #333232;
+
+$color-brand-transparent:           rgba($color-brand, 0.80);
+$color-brand-light-transparent:     rgba($color-brand-light, 0.80);
+$color-base-transparent:            rgba($color-base, 0.80);
+$color-default-transparent:         rgba($color-default, 0.80);
+
+
+///* ========================================================================
+//     #FONT
+//   ======================================================================== */
+
+@import url('https://fonts.googleapis.com/css?family=Lato');
+

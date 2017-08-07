@@ -1,0 +1,108 @@
+<div class="c-accordion">
+    <dl>
+        <dt>
+            <a href="#bundesliga_1" aria-expanded="false" aria-controls="bundesliga_1" class="c-accordion__title accordionTitle js-accordionTrigger">
+                1. Bundesliga
+            </a>
+        </dt>
+        <dd class="accordion-content accordionItem c-accordion__item is-collapsed" id="bundesliga_1" aria-hidden="true">
+            <dl>
+                <dt>
+                    <a href="#werderbremen" aria-expanded="false" aria-controls="werderbremen" class="c-accordion__title accordionTitle js-accordionTrigger">
+                        Werder Bremen
+                    </a>
+                </dt>
+                <dd class="accordion-content accordionItem c-accordion__item is-collapsed" id="werderbremen" aria-hidden="true">
+                    <h5>Ticketboersen:</h5>
+                    <ul class="[ u-margin-bottom ]">
+                        <li><a href="http://www.worum.org/forums/68-Ticketing" target="_blank">worum.org</a></li>
+                    </ul>
+                    <h5>Treffpunkte</h5>
+                    <ul>
+                        <li><a href="https://goo.gl/maps/romzzdZNfa12">Taubenschlag</a></li>
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+        <dt>
+            <a href="#bundesliga_2" aria-expanded="false" aria-controls="bundesliga_2" class="c-accordion__title accordionTitle js-accordionTrigger">
+                2. Bundesliga
+            </a>
+        </dt>
+        <dd class="accordion-content accordionItem c-accordion__item is-collapsed" id="bundesliga_2" aria-hidden="true">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu interdum diam. Donec interdum porttitor risus non bibendum. Maecenas sollicitudin eros in quam imperdiet placerat. Cras justo purus, rhoncus nec lobortis ut, iaculis vel ipsum. Donec dignissim arcu nec elit faucibus condimentum. Donec facilisis consectetur enim sit amet varius. Pellentesque justo dui, sodales quis luctus a, iaculis eget mauris. </p>
+            <p>Aliquam dapibus, ante quis fringilla feugiat, mauris risus condimentum massa, at elementum libero quam ac ligula. Pellentesque at rhoncus dolor. Duis porttitor nibh ut lobortis aliquam. Nullam eu dolor venenatis mauris placerat tristique eget id dolor. Quisque blandit adipiscing erat vitae dapibus. Nulla aliquam magna nec elementum tincidunt.</p>
+        </dd>
+        <dt>
+            <a href="#liga_3" aria-expanded="false" aria-controls="liga_3" class="c-accordion__title accordionTitle js-accordionTrigger">
+                3. Liga
+            </a>
+        </dt>
+        <dd class="accordion-content accordionItem c-accordion__item is-collapsed" id="liga_3" aria-hidden="true">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu interdum diam. Donec interdum porttitor risus non bibendum. Maecenas sollicitudin eros in quam imperdiet placerat. Cras justo purus, rhoncus nec lobortis ut, iaculis vel ipsum. Donec dignissim arcu nec elit faucibus condimentum. Donec facilisis consectetur enim sit amet varius. Pellentesque justo dui, sodales quis luctus a, iaculis eget mauris. </p>
+            <p>Aliquam dapibus, ante quis fringilla feugiat, mauris risus condimentum massa, at elementum libero quam ac ligula. Pellentesque at rhoncus dolor. Duis porttitor nibh ut lobortis aliquam. Nullam eu dolor venenatis mauris placerat tristique eget id dolor. Quisque blandit adipiscing erat vitae dapibus. Nulla aliquam magna nec elementum tincidunt.</p>
+        </dd>
+    </dl>
+</div>
+
+<script>
+    (function(){
+        var d = document,
+        accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
+        setAria,
+        setAccordionAria,
+        switchAccordion,
+    touchSupported = ('ontouchstart' in window),
+    pointerSupported = ('pointerdown' in window);
+    
+    skipClickDelay = function(e){
+        e.preventDefault();
+        e.target.click();
+    }
+
+    setAriaAttr = function(el, ariaType, newProperty){
+            el.setAttribute(ariaType, newProperty);
+        };
+        setAccordionAria = function(el1, el2, expanded){
+            switch(expanded) {
+        case "true":
+            setAriaAttr(el1, 'aria-expanded', 'true');
+            setAriaAttr(el2, 'aria-hidden', 'false');
+            break;
+        case "false":
+            setAriaAttr(el1, 'aria-expanded', 'false');
+            setAriaAttr(el2, 'aria-hidden', 'true');
+            break;
+        default:
+                    break;
+            }
+        };
+    //function
+    switchAccordion = function(e) {
+    console.log("triggered");
+        e.preventDefault();
+        var thisAnswer = e.target.parentNode.nextElementSibling;
+        var thisQuestion = e.target;
+        if(thisAnswer.classList.contains('is-collapsed')) {
+            setAccordionAria(thisQuestion, thisAnswer, 'true');
+        } else {
+            setAccordionAria(thisQuestion, thisAnswer, 'false');
+        }
+        thisQuestion.classList.toggle('is-collapsed');
+        thisQuestion.classList.toggle('is-expanded');
+            thisAnswer.classList.toggle('is-collapsed');
+            thisAnswer.classList.toggle('is-expanded');
+        
+        thisAnswer.classList.toggle('animateIn');
+        };
+        for (var i=0,len=accordionToggles.length; i<len; i++) {
+            if(touchSupported) {
+        accordionToggles[i].addEventListener('touchstart', skipClickDelay, false);
+        }
+        if(pointerSupported){
+        accordionToggles[i].addEventListener('pointerdown', skipClickDelay, false);
+        }
+        accordionToggles[i].addEventListener('click', switchAccordion, false);
+    }
+    })();
+</script>

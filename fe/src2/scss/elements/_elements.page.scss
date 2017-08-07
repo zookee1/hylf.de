@@ -1,0 +1,43 @@
+///* ========================================================================
+//     #Page
+//   ======================================================================== */
+
+/**
+ * Assign the $base-font-family.
+ */
+
+html {
+    font-family: $base-font-family;
+    overflow-x: hidden;
+}
+
+/**
+ * color and background-color for slected text/elements
+ */
+
+::selection {
+    background-color: $color-brand;
+    color: $color-default;
+}
+
+::-moz-selection {
+    background-color: $color-brand;
+    color: $color-default;
+}
+
+/**
+ * disable background on selected images
+ */
+
+img {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/**
+ * u-tags needs to be underlined
+ */
+
+u {
+    text-decoration: underline;
+}

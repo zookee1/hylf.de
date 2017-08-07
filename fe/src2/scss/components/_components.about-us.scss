@@ -1,0 +1,18 @@
+/*------------------------------------*\
+    #ABOUT-US
+\*------------------------------------*/
+
+.c-about-us {
+    background: $color-brand;
+}
+
+    .c-about-us__image {
+        border: 5px solid $color-ui;
+        border-radius: 50%;
+        width: 100%;
+        height: auto;
+
+        @include mq($from: mobile, $until: desktop) {
+            width: 150px;
+        }
+    }

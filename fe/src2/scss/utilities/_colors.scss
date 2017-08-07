@@ -1,0 +1,73 @@
+/*------------------------------------*\
+   #COLORS
+\*------------------------------------*/
+
+// Colors map.
+// Insert colors here, you wish to have a background-color
+// and text-color utility-class for.
+$colors: (
+    brand:              $color-brand,
+    brand-light:        $color-brand-light,
+    secondary:          $color-secondary,
+    secondary-light:    $color-secondary-light,
+    ui:                 $color-ui,
+    default:            $color-default,
+    base:               $color-base,
+);
+
+
+//Colors for transparent background
+$colors-transparent: (
+    brand-transparent:          $color-brand-transparent,
+    brand-light-transparent:    $color-brand-light-transparent,
+    default-transparent:        $color-default-transparent,
+    base-transparent:           $color-base-transparent,
+);
+
+
+
+/**
+ * Background colors.
+ */
+@each $color in $colors {
+
+    $color-name:  nth($color, 1);
+    $color-value: nth($color, 2);
+
+    .u-bg-#{$color-name} {
+        background-color: #{$color-value} !important;
+    }
+
+}
+
+
+/**
+ * Transparent background colors.
+ */
+@each $color in $colors-transparent {
+
+    $color-name:  nth($color, 1);
+    $color-value: nth($color, 2);
+
+    .u-bg-#{$color-name} {
+        background-color: #{$color-value} !important;
+    }
+
+}
+
+
+
+
+/**
+ * Text colors.
+ */
+@each $color in $colors {
+
+    $color-name:  nth($color, 1);
+    $color-value: nth($color, 2);
+
+    .u-text-#{$color-name} {
+        color: #{$color-value} !important;
+    }
+
+}

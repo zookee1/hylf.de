@@ -1,0 +1,22 @@
+a {
+    transition: $global-transition;
+    color: $color-brand;
+    text-decoration: none;
+    padding-bottom: 3px;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+        color: $color-brand-dark;
+        border-bottom-color: $color-brand-dark;
+    }
+
+
+    .u-bg-base &, .u-bg-brand & {
+        color: $color-default;
+        
+        &:hover {
+            color: $color-default;
+            border-bottom-color: $color-default;
+        }
+    }
+}

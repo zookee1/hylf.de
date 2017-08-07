@@ -1,0 +1,21 @@
+/*------------------------------------*\
+    #PAGE-HEAD
+\*------------------------------------*/
+
+.c-page-head {
+    position: relative;
+    height: 200px;
+    background-image: url("/img/header.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+
+    @include mq($from: tablet, $until: desktop) {
+        height: 350px;
+    }
+
+    @include mq($from: desktop) {
+        height: 500px;
+    }
+
+}
