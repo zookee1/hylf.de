@@ -1098,7 +1098,7 @@ table {
 .c-page-head {
   position: relative;
   height: 200px;
-  background-image: url("/img/header.jpeg");
+  background-image: url("/static/img/header.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 0px; }

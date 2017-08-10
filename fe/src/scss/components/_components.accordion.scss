@@ -33,7 +33,7 @@
     }
 
     .c-accordion__title.is-expanded {
-        background-color: darken($color-base, 10%);
+        background-color: darken($color-base, 5%);
 
         &:before {
             transform:rotate(-135deg);

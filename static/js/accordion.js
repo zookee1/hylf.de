@@ -1,0 +1,120 @@
+//fill accordions
+  (function() {
+      var request = new XMLHttpRequest();
+      request.open('GET', '/static/js/clubs.json', true);
+      request.onload = function() {
+          if (request.status >= 200 && request.status < 400) {
+              var clubInformation = request.responseText
+              fillAccordion(JSON.parse(clubInformation));
+          } else {
+              document.querySelector('.c-accordion').innerHTML = 'Leider ist etwas schiefgelaufen, versuche es erneut.';
+          }
+      };
+      request.onerror = function() {
+          document.querySelector('.c-accordion').innerHTML = 'Leider ist etwas schiefgelaufen, versuche es erneut.';
+      };
+      request.send();
+      fillAccordion = function(clubInformation) {
+          Object.keys(clubInformation).forEach(key => {
+              Object.keys(clubInformation[key]['clubs']).forEach(team_key => {
+                  var parent = document.querySelector(clubInformation[key]['element']),
+                      ticket_exchanges_online = clubInformation[key]['clubs'][team_key]['ticket_exchanges_online'],
+                      ticket_exchange_places = clubInformation[key]['clubs'][team_key]['ticket_exchange_places'],
+                      ticket_exchanges_online_html = '',
+                      ticket_exchange_places_html = '';
+                  Object.keys(ticket_exchanges_online).forEach(ex_online => {
+                      ticket_exchanges_online_html += '<li><a href="' + ticket_exchanges_online[ex_online].link + '" target="_blank">' + ticket_exchanges_online[ex_online].name + '</a></li>';
+                  });
+                  Object.keys(ticket_exchange_places).forEach(ex_online => {
+                      ticket_exchange_places_html += '<li><a href="' + ticket_exchange_places[ex_online].link + '" target="_blank">' + ticket_exchange_places[ex_online].name + '</a></li>';
+                  });
+                  var accordionItem = createAccordionItem(clubInformation[key]['clubs'][team_key], ticket_exchanges_online_html, ticket_exchange_places_html);
+                  parent.appendChild(accordionItem);
+              });
+          });
+          activateAccordion();
+      };
+  })();
+  createAccordionItem = function(details, exchange_online, exchange_places) {
+      var name = details['name'],
+          shortname = details['shortname'],
+          js_handle = details['js_handle'],
+          element = document.createElement("dl");
+      element.innerHTML = `<dt>
+                                  <a href="#` + shortname + `" aria-expanded="false" aria-controls="` + shortname + `" class="c-accordion__title accordionTitle js-accordionTrigger">
+                                      ` + name + `
+                                  </a>
+                              </dt>
+                              <dd class="accordion-content accordionItem c-accordion__item is-collapsed" id="` + shortname + `" aria-hidden="true">
+                                  <div class="[ o-layout ]  [ u-margin-bottom ]">
+                                      <div class="[ o-layout__item ]  [ u-1/1  u-1/2@tablet  u-1/1@desktop ]">
+                                          <h5>Ticketboersen:</h5>
+                                          <ul class="[ o-list-bare ]">
+                                              ` + exchange_online + `
+                                          </ul>
+                                      </div>
+                                      <div class="[ o-layout__item ]  [ u-1/1  u-1/2@tablet  u-1/1@desktop ]">
+                                          <h5>Treffpunkte</h5>
+                                          <ul class="[ o-list-bare ]">
+                                              ` + exchange_places + `
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </dd>`;
+      return element;
+  }
+  //make accordions work
+  activateAccordion = function() {
+      var d = document,
+          accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
+          setAria,
+          setAccordionAria,
+          switchAccordion,
+          touchSupported = ('ontouchstart' in window),
+          pointerSupported = ('pointerdown' in window),
+          skipClickDelay = function(e) {
+              e.preventDefault();
+              e.target.click();
+          }
+      setAriaAttr = function(el, ariaType, newProperty) {
+          el.setAttribute(ariaType, newProperty);
+      };
+      setAccordionAria = function(el1, el2, expanded) {
+          switch (expanded) {
+              case "true":
+                  setAriaAttr(el1, 'aria-expanded', 'true');
+                  setAriaAttr(el2, 'aria-hidden', 'false');
+                  break;
+              case "false":
+                  setAriaAttr(el1, 'aria-expanded', 'false');
+                  setAriaAttr(el2, 'aria-hidden', 'true');
+                  break;
+              default:
+                  break;
+          }
+      };
+      switchAccordion = function(e) {
+          e.preventDefault();
+          var thisAnswer = e.target.parentNode.nextElementSibling;
+          var thisQuestion = e.target;
+          if (thisAnswer.classList.contains('is-collapsed')) {
+              setAccordionAria(thisQuestion, thisAnswer, 'true');
+          } else {
+              setAccordionAria(thisQuestion, thisAnswer, 'false');
+          }
+          thisQuestion.classList.toggle('is-collapsed');
+          thisQuestion.classList.toggle('is-expanded');
+          thisAnswer.classList.toggle('is-collapsed');
+          thisAnswer.classList.toggle('is-expanded');
+          thisAnswer.classList.toggle('animateIn');
+      };
+      for (var i = 0, len = accordionToggles.length; i < len; i++) {
+          if (touchSupported) {
+              accordionToggles[i].addEventListener('touchstart', skipClickDelay, false);
+          }
+          if (pointerSupported) {
+              accordionToggles[i].addEventListener('pointerdown', skipClickDelay, false);
+          }
+          accordionToggles[i].addEventListener('click', switchAccordion, false);
+      }
+  };

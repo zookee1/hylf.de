@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import homepage from '@/components/Homepage';
-import contact from '@/components/Contact';
+import kontakt from '@/components/Kontakt';
 
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -13,10 +14,9 @@ export default new Router({
       component: homepage,
     },
     {
-      path: '/contact',
-      name: 'Contact',
-      component: contact,
+      path: '/kontakt',
+      name: 'Kontakt',
+      component: kontakt,
     },
   ],
-  mode: 'history',
 });

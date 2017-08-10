@@ -18,10 +18,19 @@
             </a>
         </dt>
         <dd class="accordion-content accordionItem c-accordion__item is-collapsed" id="liga_3" aria-hidden="true"></dd>
+        <dt>
+            <a href="#hylf_uns" aria-expanded="false" aria-controls="hylf_uns" class="c-accordion__title accordionTitle js-accordionTrigger">
+                Hylf uns!
+            </a>
+        </dt>
+        <dd class="accordion-content accordionItem c-accordion__item is-collapsed" id="hylf_uns" aria-hidden="true">
+            <p class="[ u-padding-top ]">Es fehlen Orte oder Online-Ticketboersen zu deinem Verein? <a href="mailto:nick@hylf.de">Melde dich bei uns!</a></p>
+        </dd>
     </dl>
 </div>
 
 <script>
+
     //fill accordions
     (function(){
         var request = new XMLHttpRequest();
@@ -43,57 +52,63 @@
         request.send();
 
         fillAccordion = function(clubInformation){
-            for (var i=0; i<Object.keys(clubInformation).length; i++) {
-                for (var j=0; j<Object.keys(clubInformation[i].clubs).length; j++) {
-                    parent = document.querySelector(clubInformation[i].element),
-                    name = clubInformation[i].clubs[j].name,
-                    shortname = clubInformation[i].clubs[j].shortname,
-                    js_handle = clubInformation[i].clubs[j].js_handle,
-                    ticket_exchanges_online = clubInformation[i].clubs[j].ticket_exchanges_online,
-                    ticket_exchange_places = clubInformation[i].clubs[j].ticket_exchange_places,
+
+            Object.keys(clubInformation).forEach( key => {
+                Object.keys(clubInformation[key]['clubs']).forEach( team_key => {
+                    var parent = document.querySelector(clubInformation[key]['element']),
+                    ticket_exchanges_online = clubInformation[key]['clubs'][team_key]['ticket_exchanges_online'],
+                    ticket_exchange_places = clubInformation[key]['clubs'][team_key]['ticket_exchange_places'],
                     ticket_exchanges_online_html = '',
                     ticket_exchange_places_html = '';
+                    
+                    Object.keys(ticket_exchanges_online).forEach( ex_online => {
+                        ticket_exchanges_online_html += '<li><a href="'+ticket_exchanges_online[ex_online].link+'" target="_blank">'+ticket_exchanges_online[ex_online].name+'</a></li>';
+                    });
 
+                    Object.keys(ticket_exchange_places).forEach( ex_online => {
+                        ticket_exchange_places_html += '<li><a href="'+ticket_exchange_places[ex_online].link+'" target="_blank">'+ticket_exchange_places[ex_online].name+'</a></li>';
+                    });
 
-                    for(var k=0, len=Object.keys(ticket_exchanges_online).length; k<len; k++) {
-                        ticket_exchanges_online_html+= '<li><a href="'+ticket_exchanges_online[k].link+'" target="_blank">'+ticket_exchanges_online[k].name+'</a></li>'
-                    }
-
-                    for(var k=0, len=Object.keys(ticket_exchange_places).length; k<len; k++) {
-                        ticket_exchange_places_html+= '<li><a href="'+ticket_exchange_places[k].link+'" target="_blank">'+ticket_exchange_places[k].name+'</a></li>'
-                    }
-
-                    var element = document.createElement("dl");
-                    element.innerHTML = `<dt>
-                                            <a href="#`+shortname+`" aria-expanded="false" aria-controls="`+shortname+`" class="c-accordion__title accordionTitle js-accordionTrigger">
-                                                `+name+`
-                                            </a>
-                                        </dt>
-                                        <dd class="accordion-content accordionItem c-accordion__item is-collapsed" id="`+shortname+`" aria-hidden="true">
-                                            <div class="[ o-layout ]  [ u-margin-bottom ]">
-                                                <div class="[ o-layout__item ]  [ u-1/1  u-1/2@tablet  u-1/1@desktop ]">
-                                                    <h5>Ticketboersen:</h5>
-                                                    <ul class="[ o-list-bare ]">
-                                                        `+ticket_exchanges_online_html+`
-                                                    </ul>
-                                                </div>
-                                                <div class="[ o-layout__item ]  [ u-1/1  u-1/2@tablet  u-1/1@desktop ]">
-                                                    <h5>Treffpunkte</h5>
-                                                    <ul class="[ o-list-bare ]">
-                                                        `+ticket_exchange_places_html+`
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </dd>`;
-
-                    parent.appendChild(element); 
-
-                }
-            }
+                    var accordionItem = createAccordionItem(clubInformation[key]['clubs'][team_key], ticket_exchanges_online_html, ticket_exchange_places_html);
+                    
+                    parent.appendChild(accordionItem);    
+                });
+            });
 
             activateAccordion();
         };
     })();
+
+    createAccordionItem = function(details, exchange_online, exchange_places) {
+            var name = details['name'],
+            shortname = details['shortname'],
+            js_handle = details['js_handle'],
+            element = document.createElement("dl");
+
+            element.innerHTML = `<dt>
+                                    <a href="#`+shortname+`" aria-expanded="false" aria-controls="`+shortname+`" class="c-accordion__title accordionTitle js-accordionTrigger">
+                                        `+name+`
+                                    </a>
+                                </dt>
+                                <dd class="accordion-content accordionItem c-accordion__item is-collapsed" id="`+shortname+`" aria-hidden="true">
+                                    <div class="[ o-layout ]  [ u-margin-bottom ]">
+                                        <div class="[ o-layout__item ]  [ u-1/1  u-1/2@tablet  u-1/1@desktop ]">
+                                            <h5>Ticketboersen:</h5>
+                                            <ul class="[ o-list-bare ]">
+                                                `+exchange_online+`
+                                            </ul>
+                                        </div>
+                                        <div class="[ o-layout__item ]  [ u-1/1  u-1/2@tablet  u-1/1@desktop ]">
+                                            <h5>Treffpunkte</h5>
+                                            <ul class="[ o-list-bare ]">
+                                                `+exchange_places+`
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dd>`;
+
+            return element;
+    }
 
     //make accordions work
     activateAccordion = function(){
@@ -155,29 +170,7 @@
             }
             
             accordionToggles[i].addEventListener('click', switchAccordion, false);
-        }
-
-        
+        }        
 
     };
-
-    {{!-- 
-        <dl>
-            <dt>
-                <a href="#werderbremen" aria-expanded="false" aria-controls="werderbremen" class="c-accordion__title accordionTitle js-accordionTrigger">
-                    Werder Bremen
-                </a>
-            </dt>
-            <dd class="accordion-content accordionItem c-accordion__item is-collapsed" id="werderbremen" aria-hidden="true">
-                <h5>Ticketboersen:</h5>
-                <ul class="[ u-margin-bottom ]">
-                    <li><a href="http://www.worum.org/forums/68-Ticketing" target="_blank">worum.org</a></li>
-                </ul>
-                <h5>Treffpunkte</h5>
-                <ul>
-                    <li><a href="https://goo.gl/maps/romzzdZNfa12">Taubenschlag</a></li>
-                </ul>
-            </dd>
-        </dl> 
-    --}}
 </script>
